@@ -1,6 +1,6 @@
 import * as React from "react";
 import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -66,8 +66,11 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     padding: theme.spacing(0, 1),
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
     // necessary for content to be below app bar
     ...theme.mixins.toolbar
   },
@@ -79,16 +82,9 @@ const useStyles = makeStyles((theme) => ({
 
 function CustomDrawer() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
-  // const handleDrawerOpen = () => {
-  //   setOpen(true);
-  // };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const handleToggleDrawer = () => setOpen(!open);
 
   return (
     <Drawer
@@ -104,15 +100,6 @@ function CustomDrawer() {
         })
       }}
     >
-      <div className={classes.toolbar}>
-        <IconButton onClick={handleDrawerClose}>
-          {theme.direction === "rtl" ? (
-            <ChevronRightIcon />
-          ) : (
-            <ChevronLeftIcon />
-          )}
-        </IconButton>
-      </div>
       <Divider />
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
@@ -135,6 +122,11 @@ function CustomDrawer() {
           </ListItem>
         ))}
       </List>
+      <div className={classes.toolbar} onClick={handleToggleDrawer}>
+        <IconButton>
+          {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        </IconButton>
+      </div>
     </Drawer>
   );
 }
