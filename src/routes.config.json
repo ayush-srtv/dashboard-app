@@ -1,5 +1,17 @@
 [
   {
-    "": ""
+    "icon": "star",
+    "title": "Dashboard",
+    "route": "/dashboard"
+  },
+  {
+    "title": "Components",
+    "route": "/components",
+    "children": [
+      {
+        "title": "Tabs",
+        "route": "/tabs"
+      }
+    ]
   }
 ]

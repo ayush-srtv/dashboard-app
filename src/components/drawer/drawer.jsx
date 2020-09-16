@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -9,9 +9,9 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
+import Icon from "@material-ui/core/Icon";
 
 const drawerWidth = 240;
 
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function CustomDrawer() {
+function CustomDrawer({ routes = [] }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -102,23 +102,17 @@ function CustomDrawer() {
     >
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
+        {routes.map((route, index) => (
+          <ListItem button key={index}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {route.icon && <Icon color="secondary">{routes.icon}</Icon>}
             </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText
+              primary={route.title}
+              component={Link}
+              to={route.route}
+              value={route.route}
+            />
           </ListItem>
         ))}
       </List>
