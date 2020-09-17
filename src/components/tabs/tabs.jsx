@@ -1,7 +1,8 @@
 import React from "react";
+import Tabs from "@material-ui/core/Tab";
 
-function Tabs() {
-  return <div></div>;
+function CustomTab() {
+  return <Tabs></Tabs>;
 }
 
-export default Tabs;
+export default CustomTab;
