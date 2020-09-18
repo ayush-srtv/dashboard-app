@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -12,6 +12,9 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
 import Icon from "@material-ui/core/Icon";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import Collapse from "@material-ui/core/Collapse";
 
 const drawerWidth = 240;
 
@@ -77,8 +80,48 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3)
+  },
+  nested: {
+    paddingLeft: theme.spacing(10)
   }
 }));
+
+function SubMenu({ route, classes }) {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
+  return (
+    <>
+      <ListItem button onClick={handleOpen}>
+        <ListItemIcon>
+          {route.icon && <Icon color="primary">{route.icon}</Icon>}
+        </ListItemIcon>
+        <ListItemText
+          primary={route.title}
+          component={Link}
+          to={route.route}
+          value={route.route}
+        />
+        {route.children && (open ? <ExpandLess /> : <ExpandMore />)}
+      </ListItem>
+      {route.children && (
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {route.children.map((element, key) => (
+              <ListItem button key={key} className={classes.nested}>
+                <ListItemText
+                  primary={element.title}
+                  component={Link}
+                  to={element.route}
+                  value={element.route}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
+      )}
+    </>
+  );
+}
 
 function CustomDrawer({ routes = [] }) {
   const classes = useStyles();
@@ -103,17 +146,7 @@ function CustomDrawer({ routes = [] }) {
       <Divider />
       <List>
         {routes.map((route, index) => (
-          <ListItem button key={index}>
-            <ListItemIcon>
-              {route.icon && <Icon color="secondary">{routes.icon}</Icon>}
-            </ListItemIcon>
-            <ListItemText
-              primary={route.title}
-              component={Link}
-              to={route.route}
-              value={route.route}
-            />
-          </ListItem>
+          <SubMenu route={route} classes={classes} key={index} />
         ))}
       </List>
       <div className={classes.toolbar} onClick={handleToggleDrawer}>
