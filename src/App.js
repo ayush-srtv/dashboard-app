@@ -29,7 +29,7 @@ export default function App({ children }) {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" noWrap>
-              Mini variant drawer
+              Theme
             </Typography>
           </Toolbar>
         </AppBar>

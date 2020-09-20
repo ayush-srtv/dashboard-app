@@ -1,6 +1,6 @@
 [
   {
-    "icon": "star",
+    "icon": "dashboard",
     "title": "Dashboard",
     "route": "/dashboard"
   },

@@ -7,13 +7,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+// import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+// import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
 import Icon from "@material-ui/core/Icon";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
+// import ExpandLess from "@material-ui/icons/ExpandLess";
+// import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 
 const drawerWidth = 240;
@@ -101,7 +101,8 @@ function SubMenu({ route, classes }) {
           to={route.route}
           value={route.route}
         />
-        {route.children && (open ? <ExpandLess /> : <ExpandMore />)}
+        {route.children &&
+          (open ? <Icon>expand_less</Icon> : <Icon>expand_more</Icon>)}
       </ListItem>
       {route.children && (
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -151,7 +152,7 @@ function CustomDrawer({ routes = [] }) {
       </List>
       <div className={classes.toolbar} onClick={handleToggleDrawer}>
         <IconButton>
-          {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          {open ? <Icon>chevron_left</Icon> : <Icon>chevron_right</Icon>}
         </IconButton>
       </div>
     </Drawer>
