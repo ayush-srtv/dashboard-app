@@ -91,16 +91,17 @@ function SubMenu({ route, classes }) {
   const handleOpen = () => setOpen(!open);
   return (
     <>
-      <ListItem button onClick={handleOpen}>
+      <ListItem
+        button
+        component={Link}
+        to={route.route}
+        value={route.route}
+        onClick={handleOpen}
+      >
         <ListItemIcon>
           {route.icon && <Icon color="primary">{route.icon}</Icon>}
         </ListItemIcon>
-        <ListItemText
-          primary={route.title}
-          component={Link}
-          to={route.route}
-          value={route.route}
-        />
+        <ListItemText primary={route.title} />
         {route.children &&
           (open ? <Icon>expand_less</Icon> : <Icon>expand_more</Icon>)}
       </ListItem>
@@ -108,13 +109,15 @@ function SubMenu({ route, classes }) {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {route.children.map((element, key) => (
-              <ListItem button key={key} className={classes.nested}>
-                <ListItemText
-                  primary={element.title}
-                  component={Link}
-                  to={element.route}
-                  value={element.route}
-                />
+              <ListItem
+                button
+                key={key}
+                component={Link}
+                to={element.route}
+                value={element.route}
+                className={classes.nested}
+              >
+                <ListItemText primary={element.title} />
               </ListItem>
             ))}
           </List>
