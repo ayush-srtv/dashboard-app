@@ -89,13 +89,14 @@ const useStyles = makeStyles((theme) => ({
 function SubMenu({ route, classes, disableParentLink }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-  const parentProps = disableParentLink
-    ? {}
-    : {
-        component: Link,
-        to: route.route,
-        value: route.route
-      };
+  const parentProps =
+    disableParentLink && route.children
+      ? {}
+      : {
+          component: Link,
+          to: route.route,
+          value: route.route
+        };
 
   return (
     <>
