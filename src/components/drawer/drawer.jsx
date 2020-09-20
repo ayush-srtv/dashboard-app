@@ -86,18 +86,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function SubMenu({ route, classes }) {
+function SubMenu({ route, classes, disableParentLink }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  const parentProps = disableParentLink
+    ? {}
+    : {
+        component: Link,
+        to: route.route,
+        value: route.route
+      };
+
   return (
     <>
-      <ListItem
-        button
-        component={Link}
-        to={route.route}
-        value={route.route}
-        onClick={handleOpen}
-      >
+      <ListItem button onClick={handleOpen} {...parentProps}>
         <ListItemIcon>
           {route.icon && <Icon color="primary">{route.icon}</Icon>}
         </ListItemIcon>
@@ -127,7 +129,7 @@ function SubMenu({ route, classes }) {
   );
 }
 
-function CustomDrawer({ routes = [] }) {
+function CustomDrawer({ routes = [], disableParentLink = false }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -150,7 +152,12 @@ function CustomDrawer({ routes = [] }) {
       <Divider />
       <List>
         {routes.map((route, index) => (
-          <SubMenu route={route} classes={classes} key={index} />
+          <SubMenu
+            route={route}
+            classes={classes}
+            key={index}
+            disableParentLink={disableParentLink}
+          />
         ))}
       </List>
       <div className={classes.toolbar} onClick={handleToggleDrawer}>

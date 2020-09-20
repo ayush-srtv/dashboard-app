@@ -24,7 +24,7 @@ export default function App({ children }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Drawer routes={routes} />
+      <Drawer routes={routes} disableParentLink />
       <div className={classes.pane}>
         <AppBar position="static">
           <Toolbar>
