@@ -11,6 +11,10 @@
       {
         "title": "Tabs",
         "route": "/tabs"
+      },
+      {
+        "title": "Cards",
+        "route": "/cards"
       }
     ]
   }
